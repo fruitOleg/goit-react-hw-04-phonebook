@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { Field, Formik, Form, ErrorMessage } from 'formik';
+import { nanoid } from 'nanoid';
+
 import * as Yup from 'yup';
 const schema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!'),
@@ -13,8 +15,7 @@ const initialValues = {
 
 export class ContactForm extends Component {
   handleSubmitForm = (value, { resetForm }) => {
-    console.log({ value });
-    this.props.addContact(value);
+    this.props.addContact({ ...value, id: nanoid() });
     resetForm();
   };
 
